@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Countdown Timer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      color: #333;
+    }
+    .countdown-box {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      font-size: 2em;
+    }
+    .countdown-label {
+      margin-top: 5px;
+      font-size: 0.5em;
+      color: #666;
+    }
+    #message {
+      font-size: 1.5em;
+      color: #FF6347;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Countdown Timer</h1>
+<div class="countdown-box" id="daysBox">
+  <span id="days"></span>
+  <div class="countdown-label">Days</div>
+</div>
+<div class="countdown-box" id="hoursBox">
+  <span id="hours"></span>
+  <div class="countdown-label">Hours</div>
+</div>
+<div class="countdown-box" id="minutesBox">
+  <span id="minutes"></span>
+  <div class="countdown-label">Minutes</div>
+</div>
+<div class="countdown-box" id="secondsBox">
+  <span id="seconds"></span>
+  <div class="countdown-label">Seconds</div>
+</div>
+<p id="message"></p>
+<button onclick="startCountdown()">Start Countdown</button>
+
+<script>
+  let timer; // Variable to hold the timer
+
+  function startCountdown() {
+    // Set the date of the event
+    const eventDate = new Date('2023-12-31T00:00:00Z').getTime();
+
+    // Update the countdown every second
+    timer = setInterval(function() {
+      // Get the current date and time
+      const now = new Date().getTime();
+
+      // Calculate the remaining time
+      const distance = eventDate - now;
+
+      // Calculate days, hours, minutes, and seconds
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display the countdown
+      document.getElementById('days').innerText = days;
+      document.getElementById('hours').innerText = hours;
+      document.getElementById('minutes').innerText = minutes;
+      document.getElementById('seconds').innerText = seconds;
+
+      // If the countdown is over, display a message
+      if (distance < 0) {
+        clearInterval(timer);
+        document.getElementById('message').innerText = 'The event has passed!';
+      }
+    }, 1000); // Update every second
+  }
+</script>
+
+</body>
+</html>
